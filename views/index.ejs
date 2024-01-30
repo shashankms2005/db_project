@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MovieDB</title>
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+<link href="/css/styles.css" rel="stylesheet" />
+
+<body>
+  <div id="bg-video-container">
+    <video autoplay muted loop id="bg-video">
+      <source src="/backgroundVedio.mp4" type="video/mp4">
+    </video>
+  </div>
+  <nav>
+    <a href="/" class="logo">MovieDB</a>
+    <a href="/newmovie">Add new MOVIE !</a>
+  </nav>
+
+  <form action="/dataformate" method="post" class="uf">
+    <label for="SortBy">Sort By:</label>
+    <select name="SortBy" id="SortBy">
+      <option value="" disabled selected>Select an option</option>
+      <option value="year">Year Of Release</option>
+      <option value="rating">IMDB Rating</option>
+      <option value="title">A-Z</option>
+    </select>
+    <button type="submit">Submit</button>
+  </form>
+
+
+  <% data.forEach(function(element) {%>
+  <div class="movie-info" name="movieId" value=<%= element.id %>>
+    <img src=<%= element.posters %> alt="Movie Poster">
+    <p class="mp"><span class="info-label">Title:</span> <%= element.title %></p>
+    <p class="mc"><span class="info-label">Year:</span> <%=  element.year %></p>
+    <p class="mc"><span class="info-label">Released:</span> <%=  element.released %></p>
+    <p class="mc"><span class="info-label">Genre:</span> <%=  element.genre %></p>
+    <p class="mc"><span class="info-label">Director:</span> <%=  element.director %></p>
+    <p class="mc"><span class="info-label">Actor:</span> <%=  element.actor %></p>
+    <p class="mpl"><span class="info-label">Plot:</span> <%=  element.plot %></p>
+    <div class="e">
+    <p class="mr" id="title<%=element.id%>">
+      <span class="info-label">Rating:</span> <%=  element.rating %>
+    </p>
+    <button id="edit<%=element.id%>" class="edit" onclick="handler('<%=element.id%>')">
+      <img class="icon" src="/pencil-solid.svg" alt="pencil image">
+    </button>
+  </div>
+    <form method="post" action="/edit">
+      <input type="hidden" name="updatedItemId" value="<%= element.id %>">
+      <input type="text" id="input<%=element.id%>" name="updatedRating" autocomplete="off" value=<%= element.rating %> hidden="true"  >
+      <button id="done<%=element.id%>" class="edit" type="submit" hidden>
+        <img class="icon" src="/check-solid.svg" alt="tick image">
+      </button>
+    </form>
+    
+    <p class="mc"><span class="info-label">Awards:</span> <%=  element.awards %></p>
+
+    <%  if( element.boxoffice){ %>
+    <p class="bp"><span class="info-label">Box Office:</span> <%= element.boxoffice %></p>
+    <% } %>
+    <input type="hidden" name="delid" value=<%= element.id %>>
+    <form method="post" action="/delete">
+      <input type="hidden" name="delete" value=<%= element.id %>>
+      <input class="del" type="submit" value="DELETE">
+    </form>
+  </div>
+  <%  });%>
+
+  <footer>
+    <p>@2024 Shashank MS , All Rights Reserved</p>
+  </footer>
+
+</body>
+<script>
+  function handler(id) {
+    alert("You are modifying the IMDB Rating");
+    document.getElementById("title" + id).setAttribute("hidden", true)
+    document.getElementById("edit" + id).setAttribute("hidden", true)
+    document.getElementById("done" + id).removeAttribute("hidden")
+    document.getElementById("input" + id).removeAttribute("hidden")
+  }
+</script>
+</html>
