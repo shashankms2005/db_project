@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const { Pool } =pkg;
 
 const db = new Pool({
-  connectionString: 'postgres://root:KimpdMEfzvvpJphYep1LBAohXOCpaXz1@dpg-cms9747109ks73dt24gg-a.frankfurt-postgres.render.com/test_tt5u',
+  connectionString: 'postgres://root:yuRmiiFVpMkq8PEvQgiLCELEaiiVmgXb@dpg-cmshjced3nmc73et6vf0-a.oregon-postgres.render.com/moviedb_72er',
   ssl: {
     rejectUnauthorized: false,
   },
